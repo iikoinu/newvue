@@ -15,18 +15,54 @@ function mouseleaveo() { xialaflagbaobei.value = false }
 const baobei = ref('宝贝')
 const baobei_lie = ref(['天猫', '店铺'])
 const search_downlist = ref(['西瓜', '演唱会', '彩票', '饮料'])
+function choosebaobei(item) {
+  console.log('item----', item)
+  if (item === '天猫') {
+    baobei.value = '天猫'
+    baobei_lie.value = ['宝贝', '店铺']
+  }
+  if (item === '店铺') {
+    baobei.value = '店铺'
+    baobei_lie.value = ['宝贝', '天猫']
+  }
+  if (item === '宝贝') {
+    baobei.value = '宝贝'
+    baobei_lie.value = ['天猫', '店铺']
+  }
+}
 
+const zhong = ref('中国大陆')
+const zhong_lie = ref(['全球', '中国香港', '中国台湾'])
+function choosezhong(item) {
+  if (item === '全球') {
+    zhong.value = '全球'
+    zhong_lie.value = ['中国大陆', '中国香港', '中国台湾']
+  }
+  if (item === '中国大陆') {
+    zhong.value = '中国大陆'
+    zhong_lie.value = ['全球', '中国香港', '中国台湾']
+  }
+  if (item === '中国香港') {
+    zhong.value = '中国香港'
+    zhong_lie.value = ['中国大陆', '全球', '中国台湾']
+  }
+  if (item === '中国台湾') {
+    zhong.value = '中国台湾'
+    zhong_lie.value = ['中国大陆', '中国香港', '全球']
+  }
+}
 </script>
 
 <template>
   <div class="one">
     <div class="one_left">
       <div class="zhong" @mouseenter=" mouseenter" @mouseleave="mouseleave">
-        <span>中国大陆</span>
+        <span>{{zhong}}</span>
         <div class="zhong_xiala" v-if="xialaflag">
-          <div class="zhong_lie">全球</div>
-          <div class="zhong_lie">中国香港</div>
-          <div class="zhong_lie">中国台湾</div>
+          <div v-for="item in zhong_lie" @click="choosezhong(item)" :key="item">{{item}}</div>
+          <!-- <div class="zhong_lie">全球</div> -->
+          <!-- <div class="zhong_lie">中国香港</div> -->
+          <!-- <div class="zhong_lie">中国台湾</div> -->
         </div>
       </div>
       <img class="xiala" src="./ptr/下拉.png" alt="">
@@ -61,7 +97,7 @@ const search_downlist = ref(['西瓜', '演唱会', '彩票', '饮料'])
         <div class="baobei" @mouseenter="mouseentero" @mouseleave="mouseleaveo">
           <span>{{baobei}}</span>
           <div class="baobei_xiala" v-if="xialaflagbaobei">
-            <div v-for="item in baobei_lie" :key="item">{{item}}</div>
+            <div v-for="item in baobei_lie" @click="choosebaobei(item)" :key="item">{{item}}</div>
           </div>
         </div>
         <img class="xialaone" src="./ptr/下拉.png" alt="">
